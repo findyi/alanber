@@ -17,6 +17,8 @@ limitations under the License.
 """
 import urllib
 from flask import request, redirect
+
+from alanber.util import logger
 from alanber.weixin.corp import CORPID
 
 
@@ -37,6 +39,7 @@ def authorize(func):
                 'state': 'duckheader'
             }
             authorize_uri = "%s?%s#wechat_redirect" % (authorize_uri_base, urllib.urlencode(authorize_uri_params))
+            logger.debug("微信授权OAuth重定向URL地址: %s" % authorize_uri)
             return redirect(authorize_uri)
     return decorator
 
