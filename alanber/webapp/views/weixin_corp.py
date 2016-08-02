@@ -22,7 +22,7 @@ bp = Blueprint('weixin_corp', __name__)
 
 
 REDIRECT_STATE_ENDPOINT_DICT = {
-    'duckheader': 'welcome'
+    'duckheader': 'duckheader.welcome'
 }
 
 
