@@ -15,3 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+CORPID = "wx0b274a470f995501"
+
+SECRET = "_NkswIBIBOjuf1kFXjsLXPnjMFZo91z3TuYXLfEmsPwuXMTWFz3nCRYhCJ29j-j0"

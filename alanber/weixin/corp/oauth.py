@@ -17,6 +17,7 @@ limitations under the License.
 """
 import urllib
 from flask import request, redirect
+from alanber.weixin.corp import CORPID
 
 
 def authorize(func):
@@ -29,7 +30,7 @@ def authorize(func):
         else:
             authorize_uri_base = "https://open.weixin.qq.com/connect/oauth2/authorize"
             authorize_uri_params = {
-                'appid': '',
+                'appid': CORPID,
                 'redirect_uri': 'http://weixin.duckheader.com/corp/callback',
                 'response_type': 'code',
                 'scope': 'snsapi_base',

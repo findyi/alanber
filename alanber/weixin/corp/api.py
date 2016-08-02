@@ -17,18 +17,15 @@ limitations under the License.
 """
 import json
 from alanber.weixin import WeixinApi, AccessToken
+from alanber.weixin.corp import CORPID, SECRET
 
 
 class CorpApi(WeixinApi):
 
-    CORPID = "wx0b274a470f995501"
-
-    SECRET = "_NkswIBIBOjuf1kFXjsLXPnjMFZo91z3TuYXLfEmsPwuXMTWFz3nCRYhCJ29j-j0"
-
     GET_ACCESS_TOKEN_URL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken"
 
     def get_access_token(self):
-        params = dict(corpid=self.CORPID, corpsecret=self.SECRET)
+        params = dict(corpid=CORPID, corpsecret=SECRET)
         resp = self._request('GET', self.GET_ACCESS_TOKEN_URL, params=params)
         return AccessToken.parse(resp.json())
 
