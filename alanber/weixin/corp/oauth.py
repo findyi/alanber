@@ -23,9 +23,9 @@ from alanber.weixin.corp import CORPID
 def authorize(func):
 
     def decorator(*args, **kwargs):
-        userid = request.args.get('userid')
-        openid = request.args.get('openid')
-        if userid or openid:
+        user = request.cookies.get('user')
+        is_follow = request.cookies.get('is_follow')
+        if user and is_follow:
             return func(*args, **kwargs)
         else:
             authorize_uri_base = "https://open.weixin.qq.com/connect/oauth2/authorize"
@@ -39,5 +39,4 @@ def authorize(func):
             authorize_uri = "%s?%s#wechat_redirect" % (authorize_uri_base, urllib.urlencode(authorize_uri_params))
             return redirect(authorize_uri)
     return decorator
-
 

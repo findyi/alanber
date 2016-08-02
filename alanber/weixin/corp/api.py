@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import json
-from alanber.weixin import WeixinApi, AccessToken
+from alanber.weixin import WeixinApi, AccessToken, ApiError
 from alanber.weixin.corp import CORPID, SECRET
 
 
@@ -56,10 +56,27 @@ class CorpApi(WeixinApi):
         url = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=%s" % userid
         return self.api_get(url)
 
-    def get_userinfo(self, code):
+    def _get_userinfo(self, code):
         url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?code=%s" % code
         data = self.api_get(url)
         userinfo = dict(userid=data.get('UserId'),
                         openid=data.get('OpenId'),
                         deviceid=data.get('DeviceId'))
         return userinfo
+
+    def get_userinfo(self, code):
+        userinfo = self._get_userinfo(code)
+        userid = userinfo.get('userid')
+        openid = userinfo.get('openid')
+        is_follow = False
+        if userid:
+            is_follow = True
+            return self.get_user(userid), is_follow
+        elif openid:
+            return self.get_mp_user(openid), is_follow
+        else:
+            raise ApiError("未能取到用户的userid或者openid")
+
+    def get_mp_user(self, openid):
+        url = "https://api.weixin.qq.com/cgi-bin/user/info?openid=%s" % openid
+        return self.api_get(url)

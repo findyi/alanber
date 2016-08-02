@@ -15,7 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from alanber.weixin.corp.oauth import authorize
 
 
@@ -25,4 +25,6 @@ bp = Blueprint('duckheader', __name__)
 @bp.route('/welcome', endpoint='welcome')
 @authorize
 def welcome():
-    return render_template('welcome.html', username='tufei')
+    user = request.cookies.get('user')
+    is_follow = request.cookies.get('is_follow')
+    return render_template('welcome.html', user=user, is_follow=is_follow)

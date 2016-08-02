@@ -15,7 +15,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from flask import Blueprint, request, redirect, url_for
+import json
+import base64
+from flask import Blueprint, request, redirect, url_for, make_response
 from alanber.weixin.corp.api import CorpApi
 
 bp = Blueprint('weixin_corp', __name__)
@@ -34,14 +36,10 @@ def callback():
         return '未知的请求'
 
     api = CorpApi()
-    userinfo = api.get_userinfo(code)
-    endpoint = REDIRECT_STATE_ENDPOINT_DICT.get(state)
+    user, is_follow = api.get_userinfo(code)
 
-    userid = userinfo.get('userid')
-    if userid is None:
-        userid = ''
-    openid = userinfo.get('openid')
-    if openid is None:
-        openid = ''
-    redirect_uri = "%s?userid=%s&openid=%s" % (url_for(endpoint), userid, openid)
-    return redirect(redirect_uri)
+    endpoint = REDIRECT_STATE_ENDPOINT_DICT.get(state)
+    response = make_response(redirect(url_for(endpoint)))
+    response.set_cookie('user', base64.b64encode(json.dumps(user)))
+    response.set_cookie('is_follow', str(is_follow))
+    return response
