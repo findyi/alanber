@@ -20,6 +20,10 @@ import tornado.httpserver
 import tornado.ioloop
 import alanber.webapp.app
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 def main():
     app = alanber.webapp.app.create_app()
