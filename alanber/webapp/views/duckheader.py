@@ -27,6 +27,6 @@ bp = Blueprint('duckheader', __name__)
 @bp.route('/welcome', endpoint='welcome')
 @authorize
 def welcome():
-    user = json.loads(base64.b16decode(request.cookies.get('user')))
+    user = json.loads(base64.b64decode(request.cookies.get('user')))
     is_follow = bool(request.cookies.get('is_follow'))
     return render_template('welcome.html', user=user, is_follow=is_follow)
