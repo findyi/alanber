@@ -15,12 +15,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from alanber.webapp import app
+import tornado.wsgi
+import tornado.httpserver
+import tornado.ioloop
+import alanber.webapp.app
 
 
 def main():
-    app.app.run('0.0.0.0', 5000, debug=True)
+    app = alanber.webapp.app.create_app()
+    app.run('0.0.0.0', 5000, debug=True)
+
+
+def tornado_main():
+    wsgi_applicaton = alanber.webapp.app.create_app()
+    wsgi_container = tornado.wsgi.WSGIContainer(wsgi_applicaton)
+    http_server = tornado.httpserver.HTTPServer(wsgi_container)
+    http_server.listen(8000)
+    tornado.ioloop.IOLoop.instance().start()
 
 
 if __name__ == '__main__':
-    main()
+    tornado_main()

@@ -18,7 +18,12 @@ limitations under the License.
 from flask import Flask
 from alanber.webapp.views import duckheader, weixin_corp
 
-app = Flask(__name__)
 
-app.register_blueprint(duckheader.bp)
-app.register_blueprint(weixin_corp.bp, url_prefix='/corp')
+def create_app():
+    application = Flask(__name__)
+    application.config.from_object('alanber.webapp.config')
+
+    application.register_blueprint(duckheader.bp)
+    application.register_blueprint(weixin_corp.bp, url_prefix='/corp')
+
+    return application
