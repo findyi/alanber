@@ -1,0 +1,4 @@
+tornado==4.4.1
+Flask==0.11.1
+requests==2.10.0
+jinja2==2.8
