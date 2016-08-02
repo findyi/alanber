@@ -36,4 +36,12 @@ def callback():
     api = CorpApi()
     userinfo = api.get_userinfo(code)
     endpoint = REDIRECT_STATE_ENDPOINT_DICT.get(state)
-    return redirect(url_for(endpoint))
+
+    userid = userinfo.get('userid')
+    if userid is None:
+        userid = ''
+    openid = userinfo.get('openid')
+    if openid is None:
+        openid = ''
+    redirect_uri = "%s?userid=%s&openid=%s" % (url_for(endpoint), userid, openid)
+    return redirect(redirect_uri)
