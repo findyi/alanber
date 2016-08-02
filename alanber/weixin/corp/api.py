@@ -33,7 +33,7 @@ class CorpApi(WeixinApi):
         return r.status_code == 200 and r.json().get('errcode') in (40001, 42001)
 
     def response_ok(self, r):
-        return r.status_code == 200 and r.json().get('errcode') == 0
+        return r.status_code == 200 and not r.json().get('errcode')
 
     def create_user(self, userid, name, department, position=None, mobile=None,
                     gender=None, email=None, weixinid=None, avatar_mediaid=None, extattr=None):
