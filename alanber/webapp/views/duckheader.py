@@ -18,6 +18,8 @@ limitations under the License.
 import json
 import base64
 from flask import Blueprint, render_template, request
+
+from alanber.util import logger
 from alanber.weixin.corp.oauth import authorize
 
 
@@ -27,6 +29,10 @@ bp = Blueprint('duckheader', __name__)
 @bp.route('/welcome', endpoint='welcome')
 @authorize
 def welcome():
-    user = json.loads(base64.b64decode(request.cookies.get('user')))
-    is_follow = bool(request.cookies.get('is_follow'))
-    return render_template('welcome.html', user=user, is_follow=is_follow)
+    if request.method == 'GET':
+        user = json.loads(base64.b64decode(request.cookies.get('user')))
+        is_follow = bool(request.cookies.get('is_follow'))
+        return render_template('welcome.html', user=user, is_follow=is_follow)
+    elif request.method == 'POST':
+        logger.debug(request.args)
+        return render_template('ok.html')
