@@ -19,6 +19,7 @@ import json
 import base64
 from flask import Blueprint, render_template, request
 
+from alanber.webapp.views import USER_WXCORP_MAP
 from alanber.weixin.corp.api import CorpApi
 from alanber.weixin.corp.oauth import authorize
 
@@ -49,9 +50,9 @@ def update(userid):
         if cn_birthday or gr_birthday:
             extattrs = []
             if cn_birthday:
-                extattrs.append(dict(name='农历生日', value=cn_birthday))
+                extattrs.append(dict(name=USER_WXCORP_MAP.get('cn_birthday'), value=cn_birthday))
             if gr_birthday:
-                extattrs.append(dict(name='公历生日', value=gr_birthday))
+                extattrs.append(dict(name=USER_WXCORP_MAP.get('gr_birthday'), value=gr_birthday))
             kwargs['extattrs'] = extattrs
         api.update_user(userid, **kwargs)
         return render_template('user/ok.html')

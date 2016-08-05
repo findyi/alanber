@@ -15,3 +15,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+USER_WXCORP_MAP = {
+    'cn_birthday': '农历生日',
+    'gr_birthday': '公历生日',
+    '农历生日': 'cn_birthday',
+    '公历生日': 'gr_birthday',
+}

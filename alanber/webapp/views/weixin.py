@@ -18,6 +18,8 @@ limitations under the License.
 import json
 import base64
 from flask import Blueprint, request, redirect, url_for, make_response
+
+from alanber.webapp.views import USER_WXCORP_MAP
 from alanber.weixin.corp.api import CorpApi
 
 bp = Blueprint('weixin', __name__)
@@ -30,6 +32,14 @@ def corp_callback():
 
     api = CorpApi()
     user, is_follow = api.get_userinfo(code)
+    if is_follow and user.has_key('extattr'):
+        extattrs = user['extattr']
+        for attr in extattrs:
+            if attr['name'] == USER_WXCORP_MAP.get('cn_birthday'):
+                user['cn_birthday'] = attr['value']
+        for attr in extattrs:
+            if attr['name'] == USER_WXCORP_MAP.get('gr_birthday'):
+                user['gr_birthday'] = attr['value']
 
     response = make_response(redirect(url_for(state)))
     response.set_cookie('user', base64.b64encode(json.dumps(user)))
