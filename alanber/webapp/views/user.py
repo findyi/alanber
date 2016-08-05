@@ -19,7 +19,6 @@ import json
 import base64
 from flask import Blueprint, render_template, request
 
-from alanber.util import logger
 from alanber.weixin.corp.oauth import authorize
 
 

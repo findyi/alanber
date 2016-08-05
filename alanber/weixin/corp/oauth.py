@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import urllib
+import functools
 from flask import request, redirect
 
 from alanber.util import logger
@@ -24,6 +25,7 @@ from alanber.weixin.corp import CORPID
 
 def authorize(func):
 
+    @functools.wraps(func)
     def decorator(*args, **kwargs):
         user = request.cookies.get('user')
         is_follow = request.cookies.get('is_follow')

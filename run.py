@@ -27,7 +27,7 @@ sys.setdefaultencoding('utf-8')
 
 def main():
     app = alanber.webapp.app.create_app()
-    app.run('0.0.0.0', 5000, debug=True)
+    app.run('0.0.0.0', 8000, debug=True)
 
 
 def tornado_main():
@@ -39,4 +39,4 @@ def tornado_main():
 
 
 if __name__ == '__main__':
-    tornado_main()
+    main()
