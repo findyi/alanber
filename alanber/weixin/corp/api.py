@@ -35,21 +35,44 @@ class CorpApi(WeixinApi):
     def response_ok(self, r):
         return r.status_code == 200 and not r.json().get('errcode')
 
-    def create_user(self, userid, name, department, position=None, mobile=None,
-                    gender=None, email=None, weixinid=None, avatar_mediaid=None, extattr=None):
+    def create_user(self, userid, name, departments, position=None, mobile=None,
+                    gender=None, email=None, weixinid=None, avatar_mediaid=None, extattrs=None):
         url = "https://qyapi.weixin.qq.com/cgi-bin/user/create"
         req_body = dict(
             userid=userid,
             name=name,
-            department=department,
+            department=departments,
             position=position,
             mobile=mobile,
             gender=gender,
             email=email,
             weixinid=weixinid,
             avatar_mediaid=avatar_mediaid,
-            extattr=extattr
         )
+        if isinstance(extattrs, list):
+            req_body['extattr'] = {
+                'attrs': extattrs
+            }
+        return self.api_post(url, body=json.dumps(req_body))
+
+    def update_user(self, userid, name=None, departments=None, position=None, mobile=None,
+                    gender=None, email=None, weixinid=None, avatar_mediaid=None, extattrs=None):
+        url = "https://qyapi.weixin.qq.com/cgi-bin/user/update"
+        req_body = dict(
+            userid=userid,
+            name=name,
+            department=departments,
+            position=position,
+            mobile=mobile,
+            gender=gender,
+            email=email,
+            weixinid=weixinid,
+            avatar_mediaid=avatar_mediaid,
+        )
+        if isinstance(extattrs, list):
+            req_body['extattr'] = {
+                'attrs': extattrs
+            }
         return self.api_post(url, body=json.dumps(req_body))
 
     def get_user(self, userid):

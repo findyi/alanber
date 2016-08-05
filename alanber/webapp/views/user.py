@@ -19,6 +19,7 @@ import json
 import base64
 from flask import Blueprint, render_template, request
 
+from alanber.weixin.corp.api import CorpApi
 from alanber.weixin.corp.oauth import authorize
 
 
@@ -33,10 +34,24 @@ def info():
     return render_template('user/info.html', user=user, is_follow=is_follow)
 
 
-@bp.route('/update', methods=['GET', 'POST'])
+@bp.route('/update/<userid>', methods=['GET', 'POST'])
 @authorize
-def update():
+def update(userid):
     if request.method == 'GET':
         return render_template('user/update.html')
     elif request.method == 'POST':
+        api = CorpApi()
+        phone = request.args.get('phone')
+        cn_birthday = request.args.get('cn_birthday')
+        gr_birthday = request.args.get('gr_birthday')
+        kwargs = dict()
+        kwargs['mobile'] = phone
+        if cn_birthday or gr_birthday:
+            extattrs = []
+            if cn_birthday:
+                extattrs.append(dict(name='农历生日', value=cn_birthday))
+            if gr_birthday:
+                extattrs.append(dict(name='公历生日', value=gr_birthday))
+            kwargs['extattrs'] = extattrs
+        api.update_user(userid, **kwargs)
         return render_template('user/ok.html')
