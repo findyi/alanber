@@ -19,11 +19,30 @@ from flask import Flask
 from alanber.webapp.views import user, weixin
 
 
+def jinja_filter_gender_translate(gender):
+    gender = str(gender)
+    gender_translate_map = {
+        '1': '男',
+        '2': '女',
+    }
+    if gender_translate_map.has_key(gender):
+        return gender_translate_map.get(gender)
+    else:
+        return '未知'
+
+
+def register_jinja_filter(app):
+    env = app.jinja_env
+    env['gender_translate'] = jinja_filter_gender_translate
+
+
 def create_app():
     application = Flask(__name__)
     application.config.from_object('alanber.webapp.config')
 
     application.register_blueprint(user.bp, url_prefix='/user')
     application.register_blueprint(weixin.bp, url_prefix='/weixin')
+
+    register_jinja_filter(application)
 
     return application
