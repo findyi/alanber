@@ -30,7 +30,15 @@ bp = Blueprint('user', __name__)
 @bp.route('/info')
 @authorize
 def info():
-    user = json.loads(base64.b64decode(request.cookies.get('user')))
+    user = json.loads(base64.b64decode(request.cookies.get('userinfo')))
+    if is_follow and user.has_key('extattr'):
+        extattrs = user['extattr']
+        for attr in extattrs:
+            if attr['name'] == USER_WXCORP_MAP.get('cn_birthday'):
+                user['cn_birthday'] = attr['value']
+        for attr in extattrs:
+            if attr['name'] == USER_WXCORP_MAP.get('gr_birthday'):
+                user['gr_birthday'] = attr['value']
     is_follow = bool(request.cookies.get('is_follow'))
     return render_template('user/info.html', user=user, is_follow=is_follow)
 

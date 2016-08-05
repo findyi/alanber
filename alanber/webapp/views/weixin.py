@@ -31,17 +31,8 @@ def corp_callback():
     state = request.args.get('state')
 
     api = CorpApi()
-    user, is_follow = api.get_userinfo(code)
-    if is_follow and user.has_key('extattr'):
-        extattrs = user['extattr']
-        for attr in extattrs:
-            if attr['name'] == USER_WXCORP_MAP.get('cn_birthday'):
-                user['cn_birthday'] = attr['value']
-        for attr in extattrs:
-            if attr['name'] == USER_WXCORP_MAP.get('gr_birthday'):
-                user['gr_birthday'] = attr['value']
+    userinfo = api.get_userinfo(code)
 
     response = make_response(redirect(url_for(state)))
-    response.set_cookie('user', base64.b64encode(json.dumps(user)))
-    response.set_cookie('is_follow', str(is_follow))
+    response.set_cookie('userinfo', base64.b64encode(json.dumps(userinfo)))
     return response
