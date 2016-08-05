@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container" id="container">
+    <div class="hd">
+        <h1 class="page_title">欢迎加入彭家湾亲友会</h1>
+    </div>
+    <div class="bd">
+        {% if is_follow %}
+        <div class="weui_cells">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>姓名</p>
+                </div>
+                <div class="weui_cell_ft">
+                    {{ user.name }}
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>性别</p>
+                </div>
+                <div class="weui_cell_ft">
+                    {{ user.gender }}
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>手机号</p>
+                </div>
+                <div class="weui_cell_ft">
+                    {{ user.phone }}
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>农历生日</p>
+                </div>
+                <div class="weui_cell_ft">
+                    {{ user.cn_birthday }}
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>公历生日</p>
+                </div>
+                <div class="weui_cell_ft">
+                    {{ user.gr_birthday }}
+                </div>
+            </div>
+        </div>
+        <a href="{{ url_for('user.update') }}" class="weui_btn weui_btn_primary">我要更新信息</a>
+        {% else %}
+        <div class="weui_msg">
+            <div class="weui_text_area">
+                <h2 class="weui_msg_title">亲爱的微信用户 {{ user.nickname }}</h2>
+                <p class="weui_msg_desc">您还没有关注彭家湾亲友会,请点击下面按钮关注</p>
+            </div>
+            <div class="weui_opr_area">
+                <p class="weui_btn_area">
+                    <a href="javascript:;" class="weui_btn weui_btn_primary">确定</a>
+                    <a href="javascript:;" class="weui_btn weui_btn_default">取消</a>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

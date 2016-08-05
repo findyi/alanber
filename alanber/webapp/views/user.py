@@ -23,16 +23,21 @@ from alanber.util import logger
 from alanber.weixin.corp.oauth import authorize
 
 
-bp = Blueprint('duckheader', __name__)
+bp = Blueprint('user', __name__)
 
 
-@bp.route('/welcome', endpoint='welcome')
+@bp.route('/info')
 @authorize
-def welcome():
+def info():
+    user = json.loads(base64.b64decode(request.cookies.get('user')))
+    is_follow = bool(request.cookies.get('is_follow'))
+    return render_template('user/info.html', user=user, is_follow=is_follow)
+
+
+@bp.route('/update')
+@authorize
+def update():
     if request.method == 'GET':
-        user = json.loads(base64.b64decode(request.cookies.get('user')))
-        is_follow = bool(request.cookies.get('is_follow'))
-        return render_template('welcome.html', user=user, is_follow=is_follow)
+        return render_template('user/update.html')
     elif request.method == 'POST':
-        logger.debug(request.args)
-        return render_template('ok.html')
+        return render_template('user/ok.html')

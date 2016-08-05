@@ -16,14 +16,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from flask import Flask
-from alanber.webapp.views import duckheader, weixin_corp
+from alanber.webapp.views import user, weixin
 
 
 def create_app():
     application = Flask(__name__)
     application.config.from_object('alanber.webapp.config')
 
-    application.register_blueprint(duckheader.bp)
-    application.register_blueprint(weixin_corp.bp, url_prefix='/corp')
+    application.register_blueprint(user.bp, url_prefix='/user')
+    application.register_blueprint(weixin.bp, url_prefix='/weixin')
 
     return application

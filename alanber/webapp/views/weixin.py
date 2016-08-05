@@ -20,26 +20,18 @@ import base64
 from flask import Blueprint, request, redirect, url_for, make_response
 from alanber.weixin.corp.api import CorpApi
 
-bp = Blueprint('weixin_corp', __name__)
+bp = Blueprint('weixin', __name__)
 
 
-REDIRECT_STATE_ENDPOINT_DICT = {
-    'duckheader': 'duckheader.welcome'
-}
-
-
-@bp.route('/callback')
-def callback():
+@bp.route('/corp_callback')
+def corp_callback():
     code = request.args.get('code')
     state = request.args.get('state')
-    if state not in REDIRECT_STATE_ENDPOINT_DICT:
-        return '未知的请求'
 
     api = CorpApi()
     user, is_follow = api.get_userinfo(code)
 
-    endpoint = REDIRECT_STATE_ENDPOINT_DICT.get(state)
-    response = make_response(redirect(url_for(endpoint)))
+    response = make_response(redirect(url_for(state)))
     response.set_cookie('user', base64.b64encode(json.dumps(user)))
     response.set_cookie('is_follow', str(is_follow))
     return response

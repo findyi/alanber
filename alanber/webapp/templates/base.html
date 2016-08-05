@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
@@ -10,7 +10,9 @@
 <body ontouchstart>
     {% block body %}
     {% endblock %}
-    <script src="//cdn.bootcss.com/jquery/2.0.0/jquery.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
     <script src="//cdn.bootcss.com/jquery-weui/0.8.0/js/jquery-weui.js"></script>
+    {% block javascript %}
+    {% endblock %}
 </body>
 </html>
