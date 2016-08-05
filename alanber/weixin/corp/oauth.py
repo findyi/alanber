@@ -33,10 +33,10 @@ def authorize(func):
             authorize_uri_base = "https://open.weixin.qq.com/connect/oauth2/authorize"
             authorize_uri_params = {
                 'appid': CORPID,
-                'redirect_uri': 'http://weixin.duckheader.com/corp/callback',
+                'redirect_uri': 'http://weixin.duckheader.com/weixin/corp_callback',
                 'response_type': 'code',
                 'scope': 'snsapi_base',
-                'state': 'duckheader'
+                'state': 'user.info'
             }
             authorize_uri = "%s?%s#wechat_redirect" % (authorize_uri_base, urllib.urlencode(authorize_uri_params))
             logger.debug("微信授权OAuth重定向URL地址: %s" % authorize_uri)
