@@ -33,7 +33,7 @@ def jinja_filter_gender_translate(gender):
 
 def register_jinja_filter(app):
     env = app.jinja_env
-    env['gender_translate'] = jinja_filter_gender_translate
+    env.filters['gender_translate'] = jinja_filter_gender_translate
 
 
 def create_app():
