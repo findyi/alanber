@@ -2,7 +2,7 @@
 {% block body %}
 <div class="container" id="container">
     <div class="hd">
-        <h1 class="page_title">欢迎加入彭家湾亲友会</h1>
+        <h3 class="page_title">欢迎加入彭家湾亲友会</h3>
     </div>
     <div class="bd">
         {% if is_follow %}
@@ -20,7 +20,7 @@
                     <p>性别</p>
                 </div>
                 <div class="weui_cell_ft">
-                    {{ user.gender }}
+                    {{ user.gender|gender_translate }}
                 </div>
             </div>
             <div class="weui_cell">
@@ -28,7 +28,7 @@
                     <p>手机号</p>
                 </div>
                 <div class="weui_cell_ft">
-                    {{ user.phone }}
+                    {{ user.mobile }}
                 </div>
             </div>
             <div class="weui_cell">
