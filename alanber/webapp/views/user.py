@@ -33,7 +33,7 @@ def info():
     return render_template('user/info.html', user=user, is_follow=is_follow)
 
 
-@bp.route('/update')
+@bp.route('/update', methods=['GET', 'POST'])
 @authorize
 def update():
     if request.method == 'GET':

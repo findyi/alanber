@@ -15,7 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from flask import Flask
+from flask import Flask, render_template
 from alanber.webapp.views import user, weixin
 
 
@@ -42,6 +42,14 @@ def create_app():
 
     application.register_blueprint(user.bp, url_prefix='/user')
     application.register_blueprint(weixin.bp, url_prefix='/weixin')
+
+    @application.errorhandler(404)
+    def page_not_found(error):
+        return render_template('404.html'), 404
+
+    @application.errorhandler(500)
+    def internal_server_error(error):
+        return render_template('500.html'), 500
 
     register_jinja_filter(application)
 
