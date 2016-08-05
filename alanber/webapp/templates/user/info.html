@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <a href="{{ url_for('user.update') }}" class="weui_btn weui_btn_primary">我要更新信息</a>
+        <a href="{{ url_for('user.update', userid=user.userid) }}" class="weui_btn weui_btn_primary">我要更新信息</a>
         {% else %}
         <div class="weui_msg">
             <div class="weui_text_area">

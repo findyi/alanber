@@ -53,7 +53,7 @@ class CorpApi(WeixinApi):
             req_body['extattr'] = {
                 'attrs': extattrs
             }
-        return self.api_post(url, body=json.dumps(req_body))
+        return self.api_post(url, data=json.dumps(req_body))
 
     def update_user(self, userid, name=None, departments=None, position=None, mobile=None,
                     gender=None, email=None, weixinid=None, avatar_mediaid=None, extattrs=None):
@@ -73,7 +73,7 @@ class CorpApi(WeixinApi):
             req_body['extattr'] = {
                 'attrs': extattrs
             }
-        return self.api_post(url, body=json.dumps(req_body))
+        return self.api_post(url, data=json.dumps(req_body))
 
     def get_user(self, userid):
         url = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=%s" % userid
