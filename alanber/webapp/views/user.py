@@ -38,7 +38,7 @@ def info():
     if is_follow:
         user = CorpApi().get_user(userid)
         if user.has_key('extattr'):
-            extattrs = user['extattr']
+            extattrs = user['extattr']['attrs']
             for attr in extattrs:
                 if attr['name'] == USER_WXCORP_MAP.get('cn_birthday'):
                     user['cn_birthday'] = attr['value']
