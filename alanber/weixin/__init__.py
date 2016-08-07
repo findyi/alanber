@@ -15,6 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+import json
 import requests
 import requests.exceptions
 from alanber.util import logger
@@ -52,7 +53,14 @@ class WeixinApi(object):
     def _request(self, method, url, **kwargs):
         logger.debug("请求URL: %s" % url)
         if kwargs.has_key('json'):
-            logger.debug("请求JSON:%s" % kwargs.get('json'))
+            if kwargs.has_key('headers'):
+                kwargs['headers']['Content-Type'] = 'application/json; charset=utf-8'
+            else:
+                kwargs['headers'] = {'Content-Type': 'application/json; charset=utf-8'}
+
+            data = json.dumps(kwargs.pop('json'), ensure_ascii=False)
+            logger.debug("请求JSON数据:%s" % data)
+            kwargs['data'] = data
         r = requests.request(method, url, **kwargs)
         logger.debug("返回响应: %s" % r.text)
         return r
