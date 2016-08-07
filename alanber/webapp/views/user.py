@@ -31,7 +31,7 @@ bp = Blueprint('user', __name__)
 @authorize
 def info():
     userinfo = json.loads(base64.b64decode(request.cookies.get('userinfo')))
-    userid = userinfo.get('UserId')
+    userid = userinfo.get('userid')
     is_follow = userid and True or False
 
     user = {}
