@@ -27,9 +27,7 @@ def authorize(func):
 
     @functools.wraps(func)
     def decorator(*args, **kwargs):
-        user = request.cookies.get('user')
-        is_follow = request.cookies.get('is_follow')
-        if user and is_follow:
+        if request.cookies.get('userinfo'):
             return func(*args, **kwargs)
         else:
             authorize_uri_base = "https://open.weixin.qq.com/connect/oauth2/authorize"
