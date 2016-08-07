@@ -52,7 +52,7 @@ class WeixinApi(object):
     def _request(self, method, url, **kwargs):
         logger.debug("请求URL: %s" % url)
         if kwargs.has_key('json'):
-            logger.debug("请求JSON:" + kwargs.get('json'))
+            logger.debug("请求JSON:%s" % kwargs.get('json'))
         r = requests.request(method, url, **kwargs)
         logger.debug("返回响应: %s" % r.text)
         return r
