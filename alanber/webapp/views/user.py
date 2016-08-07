@@ -55,9 +55,9 @@ def update(userid):
         return render_template('user/update.html')
     elif request.method == 'POST':
         api = CorpApi()
-        phone = request.args.get('phone')
-        cn_birthday = request.args.get('cn_birthday')
-        gr_birthday = request.args.get('gr_birthday')
+        phone = request.form.get('phone')
+        cn_birthday = request.form.get('cn_birthday')
+        gr_birthday = request.form.get('gr_birthday')
         kwargs = dict()
         kwargs['mobile'] = phone
         if cn_birthday or gr_birthday:
