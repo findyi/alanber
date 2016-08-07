@@ -53,7 +53,7 @@ class CorpApi(WeixinApi):
             req_body['extattr'] = {
                 'attrs': extattrs
             }
-        return self.api_post(url, data=json.dumps(req_body))
+        return self.api_post(url, json=req_body)
 
     def update_user(self, userid, name=None, departments=None, position=None, mobile=None,
                     gender=None, email=None, weixinid=None, avatar_mediaid=None, extattrs=None):
@@ -73,7 +73,7 @@ class CorpApi(WeixinApi):
             req_body['extattr'] = {
                 'attrs': extattrs
             }
-        return self.api_post(url, data=json.dumps(req_body))
+        return self.api_post(url, json=req_body)
 
     def get_user(self, userid):
         url = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=%s" % userid
@@ -86,19 +86,6 @@ class CorpApi(WeixinApi):
                         openid=data.get('OpenId'),
                         deviceid=data.get('DeviceId'))
         return userinfo
-
-    # def get_userinfo(self, code):
-    #     userinfo = self._get_userinfo(code)
-    #     userid = userinfo.get('userid')
-    #     openid = userinfo.get('openid')
-    #     is_follow = False
-    #     if userid:
-    #         is_follow = True
-    #         return self.get_user(userid), is_follow
-    #     elif openid:
-    #         return self.get_mp_user(openid), is_follow
-    #     else:
-    #         raise ApiError("未能取到用户的userid或者openid")
 
     def get_mp_user(self, openid):
         url = "https://api.weixin.qq.com/cgi-bin/user/info?openid=%s" % openid
