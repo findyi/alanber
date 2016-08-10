@@ -29,7 +29,7 @@ class UserCache(object):
 
     @classmethod
     def put(cls, user):
-        cls._cache[user.userid] = user
+        cls._cache[user.get("userid")] = user
 
     @classmethod
     def get(cls, userid):
