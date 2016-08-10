@@ -27,6 +27,9 @@ def authorize(func):
 
     @functools.wraps(func)
     def decorator(*args, **kwargs):
+        # for local debug test
+        # request.cookies = dict(userinfo='eyJ1c2VyaWQiOiAidHVmZWkifQ==') # userid
+        # request.cookies = dict(userinfo='eyJvcGVuaWQiOiAidWRma2RrIn0=') # openid
         if request.cookies.get('userinfo'):
             return func(*args, **kwargs)
         else:

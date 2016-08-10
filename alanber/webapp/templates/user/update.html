@@ -35,8 +35,12 @@
 
 {% block javascript %}
 <script type="text/javascript">
-    $("#cnDate").calendar();
-    $("#grDate").calendar();
+    $("#cnDate").calendar({
+        value: ["1980-01-01"]
+    });
+    $("#grDate").calendar({
+        value: ["1980-01-01"]
+    });
 
     function submitUser() {
         $("#userForm").submit();

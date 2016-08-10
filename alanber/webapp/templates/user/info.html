@@ -53,13 +53,10 @@
         <div class="weui_msg">
             <div class="weui_text_area">
                 <h2 class="weui_msg_title">亲爱的微信用户 {{ user.nickname }}</h2>
-                <p class="weui_msg_desc">您还没有关注彭家湾亲友会,请点击下面按钮关注</p>
+                <p class="weui_msg_desc">您还没有关注彭家湾亲友会,请长按下面的二维码进行关注</p>
             </div>
             <div class="weui_opr_area">
-                <p class="weui_btn_area">
-                    <a href="javascript:;" class="weui_btn weui_btn_primary">确定</a>
-                    <a href="javascript:;" class="weui_btn weui_btn_default">取消</a>
-                </p>
+                <img src="{{ url_for('static', filename='img/qrcode_for_pjwqyh_258.jpg') }}" />
             </div>
         </div>
         {% endif %}
