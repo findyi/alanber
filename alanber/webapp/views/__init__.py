@@ -21,3 +21,20 @@ USER_WXCORP_MAP = {
     '农历生日': 'cn_birthday',
     '公历生日': 'gr_birthday',
 }
+
+
+class UserCache(object):
+
+    _cache = dict()
+
+    @classmethod
+    def put(cls, user):
+        cls._cache[user.userid] = user
+
+    @classmethod
+    def get(cls, userid):
+        return cls._cache.get(userid)
+
+    @classmethod
+    def delete(cls, userid):
+        del cls._cache[userid]

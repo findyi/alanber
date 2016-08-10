@@ -19,7 +19,7 @@ import json
 import base64
 from flask import Blueprint, render_template, request
 
-from alanber.webapp.views import USER_WXCORP_MAP
+from alanber.webapp.views import USER_WXCORP_MAP, UserCache
 from alanber.weixin.corp.api import CorpApi
 from alanber.weixin.corp.oauth import authorize
 
@@ -45,21 +45,28 @@ def info():
             for attr in extattrs:
                 if attr['name'] == USER_WXCORP_MAP.get('gr_birthday'):
                     user['gr_birthday'] = attr['value']
+        UserCache.put(user)
     return render_template('user/info.html', user=user, is_follow=is_follow)
 
 
 @bp.route('/update/<userid>', methods=['GET', 'POST'])
 @authorize
 def update(userid):
+    user = UserCache.get(userid)
+
     if request.method == 'GET':
-        return render_template('user/update.html')
+        return render_template('user/update.html', user=user)
     elif request.method == 'POST':
-        api = CorpApi()
         phone = request.form.get('phone')
         cn_birthday = request.form.get('cn_birthday')
         gr_birthday = request.form.get('gr_birthday')
         kwargs = dict()
-        kwargs['mobile'] = phone
+
+        if phone:
+            kwargs['mobile'] = phone
+        else:
+            kwargs['mobile'] = user.get('mobile')
+
         if cn_birthday or gr_birthday:
             extattrs = []
             if cn_birthday:

@@ -9,20 +9,20 @@
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">手机号码</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="tel" name="phone" placeholder="请输入手机号码">
+                    <input class="weui_input" type="tel" name="phone" placeholder="请输入手机号码" value="{{ user.mobile }}">
                 </div>
             </div>
             <div class="weui_cells_title">公历生日和农历生日二选一即可</div>
             <div class="weui_cell">
                 <div class="weui_cell_hd weui_cell_primary">农历生日</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="text" id="cnDate" name="cn_birthday">
+                    <input class="weui_input" type="text" id="cnDate" name="cn_birthday" value="{{ user.cn_birthday }}">
                 </div>
             </div>
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">公历生日</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="text" id="grDate" name="gr_birthday">
+                    <input class="weui_input" type="text" id="grDate" name="gr_birthday" value="{{ user.gr_birthday }}>
                 </div>
             </div>
             <div class="weui_cell">
