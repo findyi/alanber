@@ -74,5 +74,5 @@ def update(userid):
             if gr_birthday:
                 extattrs.append(dict(name=USER_WXCORP_MAP.get('gr_birthday'), value=gr_birthday))
             kwargs['extattrs'] = extattrs
-        api.update_user(userid, **kwargs)
+        CorpApi().update_user(userid, **kwargs)
         return render_template('user/ok.html')
